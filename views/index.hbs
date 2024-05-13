@@ -1,0 +1,244 @@
+
+ 
+  <div class="title">
+    <div class="text"> 
+      <span class="light">Дневник</span>
+       <span class="bold">DEVELOPER</span> 
+       <span class="regular">ANTEYKU</span></div>
+    <div class="line"></div>
+  </div>
+
+
+  <a href="/logout" class="logout">Выйти</a>
+
+
+<div class="news">
+  <!--
+  <div class="news__mini-block">
+    <div class="news__mini-block__images">
+      <img src="battlefield-1-three-amigos-4k-3840x2160.jpg" alt="картинка">
+    </div>
+    <div class="news__mini-block__title">{{one}}</div>
+  </div>
+  -->
+
+
+  {{#each fresh}}
+    {{#if this.img}}
+    <a href="{{this.href}}" class="news__mini-block">
+      <div class="news__mini-block__images">
+        <img src="red-mask-boy-4k-mh-3840x2160.jpg" alt="картинка">
+      </div>
+      <div class="news__mini-block__title">{{this.text}}</div>
+    </a>      
+    {{else}}
+    <a href="{{this.href}}" class="news__mini-block">
+      <div class="news__mini-block__images">
+        <img src="battlefield-1-three-amigos-4k-3840x2160.jpg" alt="картинка">
+      </div>
+      <div class="news__mini-block__title">{{this.text}}</div>
+    </a>      
+    {{/if}}
+  {{/each}}
+
+</div>
+
+<div class="weather">
+  <div class="weather__block">
+    <div class="weather__block__title">День</div>
+    <div class="weather__block__static">{{day}}</div>
+  </div>
+
+  <div class="weather__block">
+    <div class="weather__block__title">Градусов</div>
+    <div class="weather__block__static">{{degree}}</div>
+  </div>  
+
+  <div class="weather__block">
+    <div class="weather__block__title">Погода</div>
+    <div class="weather__block__static">{{weathers}}</div>
+  </div>  
+
+  <div class="weather__block">
+    <div class="weather__block__title">Город</div>
+    <div class="weather__block__static">{{town}}</div>
+  </div>        
+</div>
+
+
+<!-- Кнопка генерации дней в месяце -->
+<a class="generate" href="/generate">Генерация записей <br/> на месяц</a>
+
+
+
+<!-- Блок с днями в дневнике -->
+<div class="space">
+
+  {{#each Days}}
+    {{#each this}}
+      {{#if title}}
+  <div class="space__mini-block
+  {{#ifeq @root.normal smile}} <!-- Стиль блока normal -->
+    normal
+  {{/ifeq}}
+  {{#ifeq @root.cool smile}} <!-- Стиль блока с уникальным днем -->
+    cool
+  {{/ifeq}}
+  {{#if generate}}
+    generate
+  {{/if}}
+  {{#if dayoff}} <!-- Если в этот день выходной -->
+    dayoff
+  {{/if}}  
+  ">
+
+    <!-- Если сегодняшний день то добавляем стиль и кнопку -->
+    <div class="space__mini-block__top {{#if today}}rep{{/if}}"> 
+      <div class="space__mini-block__top__date">
+        <span>
+          {{create}}
+        </span>
+      </div>
+      {{#if dayoff}} <!-- Если в этот день выходной -->
+          <div class="sunday">
+            <span>
+              {{dayoff}}
+            </span>
+          </div>
+      {{/if}}
+      <div class="space__mini-block__top__info {{#if today}}today{{/if}}">
+        {{#if noneText}}
+          Сегодня
+        {{else}}
+
+          
+
+          <div class="space__mini-block__top__info-two"> {{title}} </div>
+               
+        {{/if}}      
+      </div>  
+
+      <div class="space__mini-block__top__hours {{#if today}}today{{/if}}"> <span> {{time}} </span> </div>   
+    </div>
+
+
+    <div class="space__mini-block__hidden">
+
+        <div class="space__mini-block__left">
+            <div class="space__mini-block__left__title">
+              ДНЕВНИК<br/>
+              <span id="red">РАЗРАБОТЧИКА</span><br/> 
+              <span id="light">ANTEYKU</span>
+            </div>
+            <div class="space__mini-block__left__logo">
+              <img src="d3184d1b9008b98d2fc63143408b63f4.jpg" alt="аватарка">
+            </div>
+        </div>
+
+        <div class="space__mini-block__bottom">
+            <div class="space__mini-block__bottom__description">
+                {{description}} 
+
+               <div class="space__mini-block__bottom__image">
+                 <img src="простой день.jpg" alt="картинка">
+                 {{#ifeq @root.normal smile}}
+                  <img src="нормальный день.jpg" alt="картинка">
+                 {{/ifeq}}
+                 {{#ifeq @root.cool smile}}
+                  <img src="класный день.jpg" alt="картинка">
+                 {{/ifeq}}
+                 
+              </div>          
+
+    
+            </div>
+
+                  <a id="delete" href="/delete/{{_id}}">
+                    <i style="font-size: 35px;" class="fas fa-ban"></i>
+                   
+                  </a> 
+                  
+                  <div id="edit">
+                    <i style="font-size: 35px;" class="far fa-edit"></i>
+                  
+                  </div>
+
+        <!-- Админка для добавления товаров -->
+        <div  class="space__mini-block__adminka">
+          <form action="/edit/{{_id}}" method="post">
+            <div class="space__mini-block__adminka__edit">РЕДАКТИРВОАНИЯ ЗАПУСИ</div>
+            <div class="space__mini-block__adminka__title">Заголовок</div>
+            <input name="title" type="text" value="{{title}}">
+            <div class="space__mini-block__adminka__title">Время</div>
+            <input name="time" type="time" value="{{time}}">
+            <div class="space__mini-block__adminka__title">Настроения дня</div>
+
+
+            <select name="smile" value="cool">
+              <option value="default">Обыденность</option>
+              <option value="normal">Не обыденность</option>
+              <option value="cool">Уникальный</option>
+            </select>
+            <div class="space__mini-block__adminka__title">Описание</div>
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Введите сюда описание дня">{{description}}</textarea>
+            <input type="hidden" name="create" value="{{create}}">
+            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+            <button type="submit">Сохранить</button>
+          </form>
+        </div>                  
+            
+        </div>   
+
+
+    </div>
+
+
+  </div>      
+      {{/if}}
+    {{/each}}
+  {{/each}}
+
+
+
+
+  <div class="add">Добавить новый день</div>
+
+    <!-- Админка для добавления товаров -->
+    <div class="space__mini-block__adminka adminkaAdd">
+      <form action="/create/day" method="post">
+        <div class="space__mini-block__adminka__title">Заголовок</div>
+        <input name="title" type="text">
+        <div class="space__mini-block__adminka__title">Время</div>
+        <input name="time" type="time" value="12:00">
+        <div class="space__mini-block__adminka__title">Настроения дня</div>
+        <select name="smile">
+          <option value="default">Обыденность</option>
+          <option value="normal">Не обыденность</option>
+          <option value="cool">Уникальный</option>
+        </select>
+        <div class="space__mini-block__adminka__title">Описание</div>
+        <textarea name="description" id="" cols="30" rows="10" placeholder="Введите сюда описание дня"></textarea>
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <button type="submit">Добавить</button>
+      </form>
+    </div>
+
+    
+
+    <input id="data" type="hidden" data-csrf='{{@root.csrf}}'>
+
+</div>
+
+<!--
+<script src="emojify.min.js"></script>
+  -->
+ 
+<script>
+  emojify.run()
+</script>
+
+<script src="useDay.js"></script> <!-- Развертывания дня при нажатии на него -->
+<script src="editDay.js"></script> <!-- Резвертывания админки редактирования дня при нажатии на кнопку --> 
+<script src="addDay.js"></script> <!-- Развертывания админки добавления дня при нажатии на кнопку --> 
+<script src="autoScroll.js"></script> <!-- Скрол к сегодняшнему дню --> 
+<script src="loadScroll.js"></script>

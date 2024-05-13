@@ -1,0 +1,53 @@
+<div class="background">
+  <img src="camp-9f-3840x2160.jpg" alt="">
+</div>
+
+<!-- Регистраци на сайте -->
+<div class="registration">
+
+  {{#if @root.succesful}}
+    <div class="registration__succesful">{{succesful}}</div>  
+  {{/if}}
+
+  {{#if @root.error}}
+    <div class="errors">{{error}}</div>
+  {{/if}}
+
+  <div class="registration__title">
+    Регистрация
+  </div>
+  <form action="/register" method="POST">
+    <div class="registration__title__pole">
+      <div class="registration__title__pole__image">
+        <img src="user.png" alt="пользователь">
+      </div>
+      <input name="login" type="text" placeholder="Логин">
+    </div>
+
+    <div class="registration__title__pole">
+      <div class="registration__title__pole__image">
+        <img src="padlock.png" alt="пользователь">
+      </div>
+      <input name="password" type="password" placeholder="Пароль">
+    </div>  
+
+    <div class="registration__title__pole">
+      <div class="registration__title__pole__image">
+        <img src="padlock.png" alt="пользователь">
+      </div>
+      <input name="resetPassword" type="password" placeholder="Пов. пароль">
+    </div>       
+
+    <div class="registration__title__pole">
+      <div class="registration__title__pole__image">
+        <img src="email.png" alt="пользователь">
+      </div>
+      <input name="email" type="text" placeholder="E-mail">
+    </div>       
+
+    <input type="hidden" name="_csrf" value="{{@root.csrf}}">
+
+      <button type="submit">Зарегистрироваться</button> 
+    <a href="/">Авторизация</a>
+  </form>
+</div>
