@@ -20,7 +20,7 @@ Space.addEventListener("scroll", function(){
     
     if(!end){
       Space.prepend(eGif);
-      fetch(`http://localhost:3000/load`, {
+      fetch(`/load`, {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({staty: staty}),
